@@ -2,85 +2,95 @@
 
 **Intelligent, Local, and Private Document Chat.**
 
-DocSense is a powerful RAG (Retrieval-Augmented Generation) application that allows you to chat with your documents (PDF, DOCX, TXT) completely offline (except for the LLM inference). It uses **Llama-3.3-70B** (via Groq) for high-speed, high-quality answers and **Qdrant** for local vector storage.
+DocSense is a modern RAG (Retrieval-Augmented Generation) application that allows you to chat with your documents (PDF, DOCX, TXT) completely offline (except for the LLM inference). It features a premium **React** frontend and a robust **FastAPI** backend.
 
 ---
 
 ## ✨ Features
 
-*   **100% Local Data Storage**: Your documents and embeddings are stored locally on your machine.
-*   **Multi-Model Support**: Switch between **Llama-3.3-70B**, **Llama-3.1-8b**, and others instantly.
-*   **Blazing Fast Inference**: Powered by Groq's LPU for near-instant responses.
-*   **Smart "Quick Questions"**: Automatically generates 5 relevant questions for every uploaded document.
-*   **Persistent File Management**: Upload, list, and delete files with a simple sidebar interface.
-*   **Clean & Modern UI**: Built with Streamlit, featuring a sticky source viewer and ghost-style buttons.
-*   **Robust RAG Pipeline**: Uses LangChain and Qdrant for accurate retrieval and context-aware answers.
+*   **Modern UI**: Built with React, Vite, and Tailwind CSS v4 (Dark SaaS Theme).
+*   **Fast Backend**: Powered by FastAPI for efficient file handling and RAG processing.
+*   **Multi-Model Support**: Switch between **Llama 3.3 70B**, **Mixtral 8x7B**, and more via Groq.
+*   **Local Vector Store**: Uses Qdrant for secure, local document indexing.
+*   **Smart Suggestions**: Automatically generates relevant questions for your documents.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 How to Run
+
+You need to run the **Backend** and **Frontend** in two separate terminal windows.
 
 ### Prerequisites
+1.  **Python 3.10+**
+2.  **Node.js 20+**
+3.  **Groq API Key** (Get one [here](https://console.groq.com/))
 
-*   Python 3.10 or higher
-*   A [Groq API Key](https://console.groq.com/) (Free beta access available)
+### 1. Setup (First Time Only)
 
-### Installation
+**Backend:**
+```bash
+# Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/docsense.git
-    cd docsense
-    ```
+# Install dependencies
+pip install -r requirements.txt
+```
 
-2.  **Create a virtual environment:**
-    ```bash
-    python -m venv .venv
-    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-    ```
+**Frontend:**
+```bash
+cd frontend
+npm install
+```
 
-3.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+**Environment Variables:**
+Create a `.env` file in the root directory:
+```bash
+GROQ_API_KEY=gsk_your_api_key_here
+```
 
-4.  **Set up configuration:**
-    Create a `.env` file in the root directory and add your Groq API key:
-    ```bash
-    GROQ_API_KEY=gsk_your_api_key_here
-    ```
+### 2. Start the Application
+
+**Terminal 1: Backend (API)**
+```bash
+source .venv/bin/activate
+uvicorn backend.main:app --reload
+```
+*Server running at: http://localhost:8000*
+
+**Terminal 2: Frontend (UI)**
+```bash
+cd frontend
+npm run dev
+```
+*App running at: http://localhost:5173*
 
 ---
 
-## 🏃‍♂️ Usage
+## 🛑 How to Stop
 
-Run the application using Streamlit:
-
-```bash
-streamlit run streamlit_app.py
-```
-
-1.  **Upload**: Drag and drop your PDF, DOCX, or TXT file in the sidebar.
-2.  **Analyze**: DocSense will ingest the file and generate "Quick Questions".
-3.  **Chat**: Click a quick question or type your own to start chatting.
-4.  **Manage**: Use the sidebar to delete files you no longer need.
+To stop the application:
+1.  Go to the terminal running the **Backend**.
+2.  Press `Ctrl + C`.
+3.  Go to the terminal running the **Frontend**.
+4.  Press `Ctrl + C`.
 
 ---
 
 ## 🚫 What NOT To Do
 
-*   **Do NOT commit your `.env` file**: This contains your private API key.
-*   **Do NOT upload sensitive personal data** to public LLM endpoints (even though storage is local, the text is sent to Groq for inference).
-*   **Do NOT delete the `data/` folder manually** while the app is running, as it may corrupt the vector database. Use the "Delete" button in the app instead.
+*   **❌ Do NOT commit your `.env` file**: This contains your private API key. We have added it to `.gitignore`, but be careful not to force add it.
+*   **❌ Do NOT delete the `data/` folder manually** while the app is running. This contains your vector database. Use the "Delete" button in the app UI instead.
+*   **❌ Do NOT upload sensitive PII (Personally Identifiable Information)**: While your documents are stored locally, the text chunks are sent to Groq's API for inference. Treat it like using ChatGPT.
+*   **❌ Do NOT run `npm run build` for development**: Use `npm run dev` for a faster, interactive development experience.
 
 ---
 
-## 🔮 Future Plans
+## 🛠️ Tech Stack
 
-*   [ ] **Chat History Persistence**: Save and load chat sessions.
-*   [ ] **Multi-Model Support**: Add support for OpenAI (GPT-4) and Anthropic (Claude).
-*   [ ] **Local LLM Support**: Integrate Ollama for a truly 100% offline experience.
-*   [ ] **Advanced RAG**: Implement re-ranking and hybrid search for better accuracy.
+*   **Frontend**: React 19, Vite, Tailwind CSS v4, Lucide React, Axios, React Markdown.
+*   **Backend**: FastAPI, Uvicorn, LangChain, Qdrant.
+*   **AI**: Groq (Llama 3, Mixtral, Gemma).
 
 ---
 
