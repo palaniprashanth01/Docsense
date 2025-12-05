@@ -1,0 +1,14 @@
+streamlit
+langchain
+langchain-community
+langchain-huggingface
+langchain-qdrant
+langchain-groq
+qdrant-client
+python-dotenv
+pypdf
+sentence-transformers
+docx2txt
+fastapi
+uvicorn
+python-multipart
